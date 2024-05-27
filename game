@@ -1,0 +1,176 @@
+import os
+import random
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def adventure_game():
+    def get_choice(options):
+        print("\n".join([f"{i+1}. {option}" for i, option in enumerate(options)]))
+        choice = input("Choose an option (1/2/...): ")
+        return int(choice) - 1
+
+    def intro():
+        clear_screen()
+        print("You are sitting on the couch, feeling hungry and craving a sandwich.")
+        print("What do you want to do?")
+        options = ["Get up", "Stay on the couch"]
+        choice = get_choice(options)
+        if choice == 0:
+            get_up()
+        else:
+            stay_on_couch()
+
+    def get_up():
+        clear_screen()
+        print("You got up from the couch.")
+        print("Where do you want to go?")
+        options = ["Go to the kitchen", "Go to another room", "Check under the couch cushions"]
+        choice = get_choice(options)
+        if choice == 0:
+            go_to_kitchen()
+        elif choice == 1:
+            another_room()
+        else:
+            check_under_couch()
+
+    def stay_on_couch():
+        clear_screen()
+        print("You decided to stay on the couch.")
+        print("What do you want to do?")
+        options = ["Think about food again", "Fall asleep", "Yell 'Sandwich!' really loud"]
+        choice = get_choice(options)
+        if choice == 0:
+            intro()
+        elif choice == 1:
+            fall_asleep()
+        else:
+            yell_sandwich()
+
+    def go_to_kitchen():
+        clear_screen()
+        print("You are now in the kitchen.")
+        print("What do you want to do?")
+        options = ["Make a sandwich", "Look for something else", "Open the fridge"]
+        choice = get_choice(options)
+        if choice == 0:
+            make_sandwich()
+        elif choice == 1:
+            look_for_snack()
+        else:
+            open_fridge()
+
+    def another_room():
+        clear_screen()
+        rooms = ["bedroom", "bathroom", "basement", "attic"]
+        room = random.choice(rooms)
+        print(f"You are in the {room}.")
+        print("What do you want to do?")
+        options = ["Go back to the couch", f"Explore the {room}"]
+        choice = get_choice(options)
+        if choice == 0:
+            intro()
+        else:
+            explore_room(room)
+
+    def explore_room(room):
+        clear_screen()
+        print(f"You are exploring the {room}.")
+        if room == "bedroom":
+            print("You found a sock. It's not edible.")
+        elif room == "bathroom":
+            print("Nothing edible here, just toiletries.")
+        elif room == "basement":
+            print("It's dark and creepy. You find an old sandwich. Eat it?")
+            options = ["Yes", "No"]
+            choice = get_choice(options)
+            if choice == 0:
+                print("You eat the old sandwich. It was a bad idea. You feel sick.")
+                print("Game over.")
+                play_again()
+            else:
+                print("Good choice. Let's try again.")
+                intro()
+        elif room == "attic":
+            print("You find a treasure chest. Inside is... another sandwich quest!")
+            intro()
+
+    def make_sandwich():
+        clear_screen()
+        print("Congratulations! You made a delicious sandwich. You win!")
+        play_again()
+
+    def look_for_snack():
+        clear_screen()
+        print("You found a snack.")
+        print("What do you want to do?")
+        options = ["Eat the snack", "Get a drink"]
+        choice = get_choice(options)
+        if choice == 0:
+            print("You ate the snack. Not as good as a sandwich, but it'll do.")
+        else:
+            print("You got a drink. Still hungry though.")
+        print("Try again.")
+        intro()
+
+    def open_fridge():
+        clear_screen()
+        print("You opened the fridge. There's no sandwich here, but you find ingredients.")
+        options = ["Make a sandwich", "Eat an apple"]
+        choice = get_choice(options)
+        if choice == 0:
+            make_sandwich()
+        else:
+            print("You eat an apple. Healthy, but not a sandwich.")
+            intro()
+
+    def check_under_couch():
+        clear_screen()
+        print("You check under the couch cushions and find some change and a remote.")
+        print("What do you want to do?")
+        options = ["Go to the kitchen", "Stay on the couch", "Try turning on the TV"]
+        choice = get_choice(options)
+        if choice == 0:
+            go_to_kitchen()
+        elif choice == 1:
+            stay_on_couch()
+        else:
+            turn_on_tv()
+
+    def turn_on_tv():
+        clear_screen()
+        print("You turn on the TV. There's a cooking show about making sandwiches.")
+        print("What do you want to do?")
+        options = ["Watch the show", "Turn off the TV and go to the kitchen"]
+        choice = get_choice(options)
+        if choice == 0:
+            print("You watch the show and learn how to make a perfect sandwich.")
+            go_to_kitchen()
+        else:
+            go_to_kitchen()
+
+    def yell_sandwich():
+        clear_screen()
+        print("You yell 'Sandwich!' really loud. Your neighbor hears and brings you a sandwich.")
+        print("Congratulations! You win in the weirdest way possible.")
+        play_again()
+
+    def fall_asleep():
+        clear_screen()
+        print("You fell asleep and dreamed about sandwiches. When you wake up, you're still hungry.")
+        print("Game over.")
+        play_again()
+
+    def play_again():
+        print("Do you want to play again?")
+        options = ["Yes", "No"]
+        choice = get_choice(options)
+        if choice == 0:
+            intro()
+        else:
+            print("Thanks for playing!")
+
+    intro()
+
+# Run the game
+adventure_game()
